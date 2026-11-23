@@ -38,4 +38,11 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.index')->with('exito', 'Producto actualizado correctamente.');
     }
+
+    public function destroy(Producto $producto): RedirectResponse
+    {
+        $producto->delete();
+
+        return redirect()->route('productos.index')->with('exito', 'Producto eliminado correctamente.');
+    }
 }

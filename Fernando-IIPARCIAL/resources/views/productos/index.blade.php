@@ -29,7 +29,15 @@
                     <td>{{ $producto->estado }}</td>
                     <td>{{ $producto->created_at }}</td>
                     <td>{{ $producto->updated_at }}</td>
-                    <td><a href="{{ route('productos.edit', $producto) }}">Editar</a></td>
+                    <td>
+                        <a href="{{ route('productos.edit', $producto) }}">Editar</a>
+                        <form method="POST" action="{{ route('productos.destroy', $producto) }}"
+                              onsubmit="return confirm('¿Eliminar este producto?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             @empty
                 <tr><td colspan="9">No hay productos registrados.</td></tr>

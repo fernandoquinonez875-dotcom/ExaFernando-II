@@ -32,7 +32,7 @@ class ActualizarProductoTest extends TestCase
 
     public function test_updates_keep_the_same_code_id_and_creation_time(): void
     {
-        $producto = Producto::factory()->create(['id' => '0001']);
+        $producto = Producto::factory()->create(['id' => '0001', 'codigo' => 'PRO-001']);
         $createdAt = $producto->created_at->toDateTimeString();
         $this->travel(1)->minutes();
         $datos = $this->data($producto);
@@ -54,7 +54,7 @@ class ActualizarProductoTest extends TestCase
     public function test_duplicate_codes_and_invalid_fields_do_not_change_the_product(): void
     {
         $producto = Producto::factory()->create();
-        $otro = Producto::factory()->create();
+        $otro = Producto::factory()->create(['codigo' => 'PRO-002']);
         $this->actingAs(User::factory()->create());
         $datos = array_replace($this->data($producto), [
             'codigo' => $otro->codigo, 'nombre' => '', 'marca' => str_repeat('a', 256),
@@ -76,6 +76,15 @@ class ActualizarProductoTest extends TestCase
         $this->actingAs(User::factory()->create())->put(route('productos.update', $producto), $datos)
             ->assertRedirect(route('productos.index'))->assertSessionHasNoErrors();
         $this->assertSame('NUEVO-001', $producto->fresh()->codigo);
+    }
+
+    public function test_codes_longer_than_ten_characters_are_rejected(): void
+    {
+        $producto = Producto::factory()->create(['codigo' => 'PRO-001']);
+        $datos = array_replace($this->data($producto), ['codigo' => str_repeat('A', 11)]);
+        $this->actingAs(User::factory()->create())->put(route('productos.update', $producto), $datos)
+            ->assertSessionHasErrors(['codigo' => 'El campo codigo no debe superar los 10 caracteres.']);
+        $this->assertSame('PRO-001', $producto->fresh()->codigo);
     }
 
     public function test_missing_products_return_404(): void

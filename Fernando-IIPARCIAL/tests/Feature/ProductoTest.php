@@ -38,15 +38,15 @@ class ProductoTest extends TestCase
             ->get(route('productos.index'))->assertOk()->assertSee('No hay productos registrados.');
     }
 
-    public function test_editing_is_available_and_deletion_is_unavailable(): void
+    public function test_editing_and_deletion_actions_are_available(): void
     {
         $producto = Producto::factory()->create();
         $this->actingAs(User::factory()->create());
 
         $this->get(route('productos.index'))->assertOk()
-            ->assertSee('Registrar producto')->assertSee('Editar')->assertDontSee('Eliminar')
-            ->assertSee(route('productos.edit', $producto));
-        $this->delete('/productos/'.$producto->id)->assertStatus(405);
+            ->assertSee('Registrar producto')->assertSee('Editar')->assertSee('Eliminar')
+            ->assertSee(route('productos.edit', $producto))
+            ->assertSee(route('productos.destroy', $producto));
 
         $this->assertDatabaseCount('productos', 1);
         $this->assertModelExists($producto);

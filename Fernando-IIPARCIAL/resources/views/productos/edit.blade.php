@@ -12,7 +12,7 @@
         </p>
         <p>
             <label for="codigo">Codigo</label>
-            <input type="text" id="codigo" name="codigo" value="{{ old('codigo', $producto->codigo) }}" maxlength="255" required>
+            <input type="text" id="codigo" name="codigo" value="{{ old('codigo', $producto->codigo) }}" maxlength="10" required>
         </p>
         <p>
             <label for="nombre">Nombre</label>
