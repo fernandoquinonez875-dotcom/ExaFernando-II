@@ -1,0 +1,18 @@
+@extends('layouts.app')
+
+@section('contenido')
+    <h1>Iniciar sesion en la Empresa</h1>
+    <form method="POST" action="{{ route('login.store') }}">
+        @csrf
+        <label for="username">Usuario</label>
+        <input id="username" name="username" type="text" value="{{ old('username') }}" required>
+
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" type="password" required>
+
+        <button type="submit">Ingresar</button>
+    </form>
+
+
+@endsection
+  
