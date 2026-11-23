@@ -95,8 +95,8 @@ class CrearProductoTest extends TestCase
             'long code' => ['codigo', str_repeat('a', 256), 'El campo codigo no debe superar los 255 caracteres.'],
             'long name' => ['nombre', str_repeat('a', 256), 'El campo nombre no debe superar los 255 caracteres.'],
             'long brand' => ['marca', str_repeat('a', 256), 'El campo marca no debe superar los 255 caracteres.'],
-            'future date' => ['fecha_adquisicion', '2026-11-24', 'La fecha de adquisición no puede ser futura.'],
-            'invalid date' => ['fecha_adquisicion', '2026-02-30', 'La fecha de adquisición debe ser una fecha válida (AAAA-MM-DD).'],
+            'future date' => ['fecha_adquisicion', '2026-11-24', 'La fecha de adquisicion no puede ser futura.'],
+            'invalid date' => ['fecha_adquisicion', '2026-02-30', 'La fecha de adquisicion debe ser una fecha valida (AAAA-MM-DD).'],
             'unknown state' => ['estado', 'vendido', 'El estado debe ser disponible, asignado o mantenimiento.'],
         ];
     }
@@ -108,7 +108,7 @@ class CrearProductoTest extends TestCase
         $this->actingAs(User::factory()->create());
 
         $this->post(route('productos.store'), $this->validData())->assertSessionHasErrors([
-            'id' => 'El id ya está registrado.', 'codigo' => 'El codigo ya está registrado.',
+            'id' => 'El id ya esta registrado.', 'codigo' => 'El codigo ya esta registrado.',
         ]);
 
         $this->assertDatabaseCount('productos', 1);

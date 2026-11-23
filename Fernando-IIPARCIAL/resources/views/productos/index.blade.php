@@ -15,6 +15,7 @@
                 <th>Estado</th>
                 <th>Creado</th>
                 <th>Actualizado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -28,9 +29,10 @@
                     <td>{{ $producto->estado }}</td>
                     <td>{{ $producto->created_at }}</td>
                     <td>{{ $producto->updated_at }}</td>
+                    <td><a href="{{ route('productos.edit', $producto) }}">Editar</a></td>
                 </tr>
             @empty
-                <tr><td colspan="8">No hay productos registrados.</td></tr>
+                <tr><td colspan="9">No hay productos registrados.</td></tr>
             @endforelse
         </tbody>
     </table>
