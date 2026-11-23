@@ -15,6 +15,8 @@ class Producto extends Model
 
     protected $keyType = 'string';
 
+    protected $fillable = ['id', 'codigo', 'nombre', 'marca', 'fecha_adquisicion', 'estado'];
+
     protected function casts(): array
     {
         return ['fecha_adquisicion' => 'date'];

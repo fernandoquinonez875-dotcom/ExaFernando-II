@@ -1,5 +1,5 @@
 <?php
- 
+
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
     })->name('inicio');
 
     Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
+    Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
 
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

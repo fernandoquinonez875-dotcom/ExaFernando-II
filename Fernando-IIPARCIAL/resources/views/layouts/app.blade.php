@@ -7,10 +7,10 @@
 </head>
 <body>
     @auth
-        <p>Sesión de {{ auth()->user()->name }}</p>
+        <p>Sesion de {{ auth()->user()->name }}</p>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit">Cerrar sesión</button>
+            <button type="submit">Cerrar sesion</button>
         </form>
     @endauth
 
